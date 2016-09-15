@@ -3,7 +3,6 @@ package com.projects.anders.shoppinglist.db;
 import android.content.Context;
 
 import com.projects.anders.shoppinglist.data.Item;
-import com.projects.anders.shoppinglist.data.ShoppingList;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -29,7 +28,7 @@ public class RealmDB {
         return db == null ? new RealmDB(context) : db;
     }
 
-    public void addList(ShoppingList list) //throws <SomeRealmException>
+    public void addItem(Item item) //throws <SomeRealmException>
     {
         realm.beginTransaction();
         //Add shopping list here
@@ -37,7 +36,7 @@ public class RealmDB {
         //Throw some exception if it fails
     }
 
-    public ShoppingList getList(long id) {
+    public Item getItem(String name) {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm bgRealm) {
