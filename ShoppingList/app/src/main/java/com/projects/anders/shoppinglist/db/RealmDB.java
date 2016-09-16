@@ -11,8 +11,8 @@ import io.realm.RealmConfiguration;
  * Singleton Realm database
  */
 public class RealmDB {
-    private Realm realm;
-    private RealmDB db;
+    private Realm _realm;
+    private static RealmDB _db;
 
     private RealmDB(Context context) {
         // Create a RealmConfiguration that saves the Realm file in the app's "files" directory.
@@ -21,23 +21,23 @@ public class RealmDB {
         Realm.setDefaultConfiguration(realmConfig);
 
         //Create a Realm instance for this thread
-        realm = Realm.getDefaultInstance();
+        _realm = Realm.getDefaultInstance();
     }
 
-    public RealmDB getRealmDB(Context context) {
-        return db == null ? new RealmDB(context) : db;
+    public static RealmDB getRealmDB(Context context) {
+        return _db == null ? new RealmDB(context) : _db;
     }
 
     public void addItem(Item item) //throws <SomeRealmException>
     {
-        realm.beginTransaction();
+        _realm.beginTransaction();
         //Add shopping list here
-        realm.commitTransaction();
+        _realm.commitTransaction();
         //Throw some exception if it fails
     }
 
     public Item getItem(String name) {
-        realm.executeTransactionAsync(new Realm.Transaction() {
+        _realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm bgRealm) {
                 //Define "query"
@@ -49,5 +49,9 @@ public class RealmDB {
             }
         });
         return null;
+    }
+
+    public void removeItem(Item item) {
+        //TODO: Remove an item from the db
     }
 }
