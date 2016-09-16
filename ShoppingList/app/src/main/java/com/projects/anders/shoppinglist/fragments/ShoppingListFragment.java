@@ -24,18 +24,19 @@ public class ShoppingListFragment extends Fragment {
 
     private ExpandableListView _listView;
     private BaseExpandableListAdapter _listAdapter;
-    private List<String> _listDataHeader;
-    private HashMap<String, List<String>> _listDataChild;
+    private List<String> _listCategories;
+    private HashMap<String, List<String>> _listItems;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, null);
 
         _listView = (ExpandableListView) view.findViewById(R.id.expandable_list_view);
-        //_listDataChild = <realm data fetched>
-        _listDataHeader = new ArrayList<>(_listDataChild.keySet());
-        _listAdapter = new ItemListAdapter(getContext(), _listDataHeader, _listDataChild);
+        //_listItems = <realm data fetched>
+        _listCategories = new ArrayList<>(_listItems.keySet());
+        _listAdapter = new ItemListAdapter(getContext(), _listCategories, _listItems);
         _listView.setAdapter(_listAdapter);
         setListeners();
         return view;
@@ -47,7 +48,7 @@ public class ShoppingListFragment extends Fragment {
             @Override
             public void onGroupExpand(int headerPos) {
                 Toast.makeText(getContext(),
-                        _listDataHeader.get(headerPos) + " List Expanded.",
+                        _listCategories.get(headerPos) + " List Expanded.",
                         Toast.LENGTH_SHORT).show();
             }
 
@@ -60,7 +61,7 @@ public class ShoppingListFragment extends Fragment {
             public boolean onChildClick(ExpandableListView listView, View v,
                                         int headerPos, int itemPos, long id) {
                 Toast.makeText(getContext(),
-                        _listDataHeader.get(headerPos) + " -> " + _listDataChild.get(_listDataHeader.get(headerPos)).get(itemPos),
+                        _listCategories.get(headerPos) + " -> " + _listItems.get(_listCategories.get(headerPos)).get(itemPos),
                         Toast.LENGTH_SHORT).show();
                 return false;
             }

@@ -62,7 +62,7 @@ public class ItemListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int headerPos, boolean b, View view, ViewGroup viewGroup) {
         final String headerText = (String) getGroup(headerPos);
-        TextView headerTextView = (TextView) view.findViewById(R.id.listTitle);
+        TextView headerTextView = (TextView) view.findViewById(R.id.list_group);
         headerTextView.setText(headerText);
         return view;
     }
@@ -71,7 +71,7 @@ public class ItemListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int headerPos, int itemPos,
                              boolean isLastChild, View view, ViewGroup viewGroup) {
         final String itemText = (String) getChild(headerPos, itemPos);
-        TextView itemTextView = (TextView) view.findViewById(R.id.expandedListItem);
+        TextView itemTextView = (TextView) view.findViewById(R.id.list_item);
         itemTextView.setText(itemText);
         return view;
     }
