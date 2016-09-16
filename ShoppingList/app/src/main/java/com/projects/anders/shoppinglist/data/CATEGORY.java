@@ -9,7 +9,7 @@ public enum CATEGORY {
     DAIRY, //Cheeses, eggs, milk
     FROZEN, //Bread, ice cream
     SWEETS, //Chocolate, candy, chips
-    BEVERAGES, //Coffee, trea, juice, soda
+    BEVERAGES, //Coffee, tea, juice, soda
     CANNED, //Sauce, beans, vegetables
     DRY, //Cereals, flour, sugar, pasta
     PRODUCE, //fruits, vegetables
