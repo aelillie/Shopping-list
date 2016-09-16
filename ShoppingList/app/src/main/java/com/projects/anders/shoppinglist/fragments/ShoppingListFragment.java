@@ -1,5 +1,7 @@
 package com.projects.anders.shoppinglist.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.projects.anders.shoppinglist.ItemListAdapter;
 import com.projects.anders.shoppinglist.R;
+import com.projects.anders.shoppinglist.data.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +29,8 @@ public class ShoppingListFragment extends Fragment {
     private BaseExpandableListAdapter _listAdapter;
     private List<String> _listCategories;
     private HashMap<String, List<String>> _listItems;
+
+    private ItemListener _callBack;
 
     @Nullable
     @Override
@@ -66,5 +71,26 @@ public class ShoppingListFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    //Attach activity as callback
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity a;
+        if (context instanceof Activity)
+            a = (Activity) context;
+        else throw new ClassCastException("Activity context not found");
+        try {
+            _callBack = (ItemListener) a;
+        } catch (ClassCastException e) {
+            System.out.println(a.toString() + "must implement the interface");
+        }
+
+    }
+
+    public interface ItemListener {
+        void onItemCreated(Item item);
+        void onItemRemoved(Item item);
     }
 }
