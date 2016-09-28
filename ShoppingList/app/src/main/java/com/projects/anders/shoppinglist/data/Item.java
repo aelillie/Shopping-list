@@ -9,14 +9,14 @@ import io.realm.RealmObject;
 public class Item extends RealmObject{
     private String _name;
     private double _quantity;
-    private UNIT _unit;
-    private CATEGORY _category;
+    private int _unit;
+    private int _category;
 
-    public CATEGORY getCategory() {
+    public int getCategory() {
         return _category;
     }
 
-    public void setCategory(CATEGORY category) {
+    public void setCategory(int category) {
         _category = category;
     }
 
@@ -36,11 +36,11 @@ public class Item extends RealmObject{
         _quantity = quantity;
     }
 
-    public UNIT getUnit() {
+    public int getUnit() {
         return _unit;
     }
 
-    public void setUnit(UNIT unit) {
+    public void setUnit(int unit) {
         _unit = unit;
     }
 }

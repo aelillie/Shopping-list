@@ -10,6 +10,8 @@ import com.projects.anders.shoppinglist.data.Item;
 import com.projects.anders.shoppinglist.db.RealmDB;
 import com.projects.anders.shoppinglist.fragments.ShoppingListFragment;
 
+import io.realm.Realm;
+
 public class MainActivity extends FragmentActivity
         implements ShoppingListFragment.ItemListener {
 
@@ -19,6 +21,9 @@ public class MainActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Initialize Realm. Should only be done once when the application starts.
+        Realm.init(this);
+
         _db = RealmDB.getRealmDB(this);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction trans = fm.beginTransaction();

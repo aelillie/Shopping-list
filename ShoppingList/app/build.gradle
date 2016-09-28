@@ -1,6 +1,26 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 
+// Credit: http://jeremie-martinez.com/2015/05/05/inject-host-gradle/
+def getIP() {
+    InetAddress result = null;
+    Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+    while (interfaces.hasMoreElements()) {
+        Enumeration<InetAddress> addresses = interfaces.nextElement().getInetAddresses();
+        while (addresses.hasMoreElements()) {
+            InetAddress address = addresses.nextElement();
+            if (!address.isLoopbackAddress()) {
+                if (address.isSiteLocalAddress()) {
+                    return address.getHostAddress();
+                } else if (result == null) {
+                    result = address;
+                }
+            }
+        }
+    }
+    return (result != null ? result : InetAddress.getLocalHost()).getHostAddress();
+}
+
 android {
     compileSdkVersion 24
     buildToolsVersion "23.0.2"
@@ -13,9 +33,19 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        def host = getIP()
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "OBJECT_SERVER_IP", "\"${host}\""
+        }
+        // This will automatically try to detect the IP address of the machine
+        // building the example. It is assumed that this machine is also running
+        // the Object Server. If not, replace 'host' with the IP of the machine
+        // hosting the server. In some cases the wrong IP address will also
+        // be detected. In that case also insert the IP address manually.
+        debug {
+            buildConfigField "String", "OBJECT_SERVER_IP", "\"${host}\""
         }
     }
 }
@@ -25,4 +55,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
+}
+
+realm {
+  syncEnabled = true;
 }
