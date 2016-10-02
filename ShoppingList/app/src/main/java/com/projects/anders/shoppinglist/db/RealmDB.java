@@ -6,6 +6,7 @@ import com.projects.anders.shoppinglist.data.Item;
 import com.projects.anders.shoppinglist.BuildConfig;
 
 import io.realm.Realm;
+import io.realm.ObjectServerError;
 import io.realm.SyncConfiguration;
 import io.realm.Credentials;
 import io.realm.User;
@@ -17,29 +18,17 @@ public class RealmDB {
     private Realm _realm;
     private static RealmDB _db;
 
-    private RealmDB(Context context) {
-        User user = User.currentUser();
-        String ip = BuildConfig.OBJECT_SERVER_IP;
-        if (user == null) {
-            Credentials creds = Credentials.usernamePassword("user@edelbo.net", "password", true);
-            String authUrl = "http://" + ip + ":9080/auth";
-            user = User.login(creds, authUrl);
-        }
+    private RealmDB(Context context, User user) {
 
-        // Create a RealmConfiguration that saves the Realm file in the app's "files" directory.
-        String serverURL = "realm://" + ip + "/~/default";
+        String serverURL = "realm://" + BuildConfig.OBJECT_SERVER_IP + "/~/default";
         SyncConfiguration configuration = new SyncConfiguration.Builder(user, serverURL).build();
-
-        //Create a Realm instance for this thread
         _realm = Realm.getInstance(configuration);
+
     }
 
-    protected void finalize ()  {
-        _realm.close();
-    }
+    public static RealmDB getRealmDB(Context context, User user) {
 
-    public static RealmDB getRealmDB(Context context) {
-        return _db == null ? new RealmDB(context) : _db;
+        return _db == null ? new RealmDB(context, user) : _db;
     }
 
     public void addItem(Item item) //throws <SomeRealmException>
@@ -67,5 +56,9 @@ public class RealmDB {
 
     public void removeItem(Item item) {
         //TODO: Remove an item from the db
+    }
+
+    public void close() {
+        _realm.close();
     }
 }
