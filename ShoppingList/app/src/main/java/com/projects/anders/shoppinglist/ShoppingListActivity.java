@@ -28,6 +28,9 @@ public class ShoppingListActivity extends AppCompatActivity {
         if (user == null) {
             gotoLoginActivity();
         }
+        else {
+            realm = RealmDB.getRealmDB(ShoppingListActivity.this, user);
+        }
     }
 
 
@@ -35,6 +38,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         if (realm != null) realm.close();
+        User.currentUser().logout();
     }
 
     private void gotoLoginActivity() {
