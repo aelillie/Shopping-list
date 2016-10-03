@@ -2,8 +2,13 @@ package com.projects.anders.shoppinglist.db;
 
 import android.content.Context;
 
+import com.projects.anders.shoppinglist.data.CATEGORY;
 import com.projects.anders.shoppinglist.data.Item;
 import com.projects.anders.shoppinglist.BuildConfig;
+import com.projects.anders.shoppinglist.data.UNIT;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.ObjectServerError;
@@ -17,12 +22,18 @@ import io.realm.User;
 public class RealmDB {
     private Realm _realm;
     private static RealmDB _db;
+    private List<Item> testItems;
 
     private RealmDB(Context context, User user) {
 
         String serverURL = "realm://" + BuildConfig.OBJECT_SERVER_IP + "/~/default";
         SyncConfiguration configuration = new SyncConfiguration.Builder(user, serverURL).build();
         _realm = Realm.getInstance(configuration);
+
+        testItems = new ArrayList<>();
+        testItems.add(new Item(CATEGORY.BEVERAGES, "Milk", 1.0, UNIT.LITRE));
+        testItems.add(new Item(CATEGORY.MEAT, "Pork", 500.0, UNIT.GRAM));
+        testItems.add(new Item(CATEGORY.SWEETS, "Chocolate", 1.0, UNIT.PIECES));
 
     }
 
@@ -60,5 +71,13 @@ public class RealmDB {
 
     public void close() {
         _realm.close();
+    }
+
+    /**
+     * Fetch all items currently on the shopping list
+     * @return Relevant shopping list items
+     */
+    public List<Item> getItems() {
+        return testItems;
     }
 }

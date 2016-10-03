@@ -22,17 +22,17 @@ import io.realm.User;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText username;
-    EditText password;
-    Button loginButton;
-    Button createUserButton;
+    @BindView(R.id.input_username) EditText username;
+    @BindView(R.id.input_password) EditText password;
+    @BindView(R.id.button_login) Button loginButton;
+    @BindView(R.id.button_create) Button createUserButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        bindViews();
+        //bindViews();
         setListeners();
     }
 

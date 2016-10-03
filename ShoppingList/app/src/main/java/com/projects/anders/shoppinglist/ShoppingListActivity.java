@@ -3,6 +3,9 @@ package com.projects.anders.shoppinglist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.projects.anders.shoppinglist.db.RealmDB;
@@ -14,7 +17,7 @@ import io.realm.User;
 /**
  * Description
  */
-public class ShoppingListActivity extends AppCompatActivity {
+public class ShoppingListActivity extends FragmentActivity {
 
     private RealmDB realm;
 
@@ -31,11 +34,20 @@ public class ShoppingListActivity extends AppCompatActivity {
         else {
             realm = RealmDB.getRealmDB(ShoppingListActivity.this, user);
         }
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction trans = fm.beginTransaction();
+        if (savedInstanceState == null) {
+            trans.add(R.id.container_shopping_list, new ShoppingListFragment());
+        } else {
+            trans.replace(R.id.container_shopping_list, new ShoppingListFragment());
+        }
+        trans.commit();
     }
 
 
     @Override
-    protected void onStop() {
+    protected void onDestroy() {
         super.onStop();
         if (realm != null) realm.close();
         User.currentUser().logout();
