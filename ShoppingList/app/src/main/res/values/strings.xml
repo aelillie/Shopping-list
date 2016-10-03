@@ -2,4 +2,9 @@
     <string name="app_name">ShoppingList</string>
     <string name="add_button_text">Add item</string>
     <string name="list_view_item_text">Item</string>
+    <string name="add_item">Add</string>
+    <string name="hint_add_item">name</string>
+    <string name="hint_item_category">category</string>
+    <string name="hint_item_quantity">quantity</string>
+    <string name="hint_item_unit">unit</string>
 </resources>

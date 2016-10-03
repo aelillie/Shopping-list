@@ -1,5 +1,8 @@
 package com.projects.anders.shoppinglist.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Item category, for sorting the list
  */
@@ -17,4 +20,12 @@ public class CATEGORY {
     public static String PAPER = "PAPER"; //Paper towels, toilet paper
     public static String PERSONAL = "PERSONAL"; //Shampoo, soap, shaving cream
     public static String OTHER = "OTHER"; //Pet items, batteries
+
+    public static List<String> getCategories() {
+        List<String> categories = new ArrayList<>();
+        categories.add(BREAD);
+        categories.add(MEAT);
+        //TODO: Rest
+        return categories;
+    }
 }

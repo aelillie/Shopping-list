@@ -27,10 +27,16 @@ public class ShoppingListActivity extends FragmentActivity {
         } else {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction trans = fm.beginTransaction();
-            if (savedInstanceState == null) {
+            ShoppingListFragment frag1 = (ShoppingListFragment)
+                    fm.findFragmentById(R.id.fragment_shopping_list_recycler_view);
+            AddItemFragment frag2 = (AddItemFragment)
+                    fm.findFragmentById(R.id.fragment_add_item_view);
+            if (frag1 == null || frag2 == null) { //First time
                 trans.add(R.id.container_shopping_list, new ShoppingListFragment());
-            } else {
+                trans.add(R.id.container_add_item, new AddItemFragment());
+            } else { //Navigated here from another view
                 trans.replace(R.id.container_shopping_list, new ShoppingListFragment());
+                trans.replace(R.id.container_add_item, new AddItemFragment());
             }
             trans.commit();
         }

@@ -37,4 +37,20 @@ public class Item extends RealmObject{
     public String getUnit() {
         return _unit;
     }
+
+    public void setCategory(String category) {
+        _category = category;
+    }
+
+    public void setName(String name) {
+        _name = name;
+    }
+
+    public void setQuantity(double quantity) {
+        _quantity = quantity;
+    }
+
+    public void setUnit(String unit) {
+        _unit = unit;
+    }
 }
