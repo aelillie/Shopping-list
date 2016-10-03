@@ -1,15 +1,10 @@
 package com.projects.anders.shoppinglist;
 
-import android.app.Activity;
-import android.content.Context;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        //bindViews();
+        bindViews();
         setListeners();
     }
 
@@ -114,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         loginButton.setEnabled(true);
         createUserButton.setEnabled(true);
-        finish();
+        startActivity(new Intent(this, ShoppingListActivity.class));
     }
 
     public void onLoginFailed(String errorMsg) {

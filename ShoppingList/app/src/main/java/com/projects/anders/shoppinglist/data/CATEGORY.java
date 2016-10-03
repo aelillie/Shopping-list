@@ -3,18 +3,18 @@ package com.projects.anders.shoppinglist.data;
 /**
  * Item category, for sorting the list
  */
-public enum CATEGORY {
-    BREAD, //Tortillas, bagels, rye bread
-    MEAT, //Lunch meat, beef, pork
-    DAIRY, //Cheeses, eggs, milk
-    FROZEN, //Bread, ice cream
-    SWEETS, //Chocolate, candy, chips
-    BEVERAGES, //Coffee, tea, juice, soda
-    CANNED, //Sauce, beans, vegetables
-    DRY, //Cereals, flour, sugar, pasta
-    PRODUCE, //fruits, vegetables
-    CLEANERS, //All-purpose, laundry detergent, dishwasher liquid
-    PAPER, //Paper towels, toilet paper
-    PERSONAL, //Shampoo, soap, shaving cream
-    OTHER, //Pet items, batteries
+public class CATEGORY {
+    public static String BREAD = "BREAD"; //Tortillas, bagels, rye bread
+    public static String MEAT = "MEAT";//Lunch meat, beef, pork
+    public static String DAIRY = "DAIRY"; //Cheeses, eggs, milk
+    public static String FROZEN = "FROZEN"; //Bread, ice cream
+    public static String SWEETS = "SWEETS"; //Chocolate, candy, chips
+    public static String BEVERAGES = "BEVERAGES"; //Coffee, tea, juice, soda
+    public static String CANNED = "CANNED"; //Sauce, beans, vegetables
+    public static String DRY = "DRY"; //Cereals, flour, sugar, pasta
+    public static String PRODUCE = "PRODUCE"; //fruits, vegetables
+    public static String CLEANERS = "CLEANERS"; //All-purpose, laundry detergent, dishwasher liquid
+    public static String PAPER = "PAPER"; //Paper towels, toilet paper
+    public static String PERSONAL = "PERSONAL"; //Shampoo, soap, shaving cream
+    public static String OTHER = "OTHER"; //Pet items, batteries
 }

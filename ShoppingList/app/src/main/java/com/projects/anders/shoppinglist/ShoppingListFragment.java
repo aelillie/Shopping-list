@@ -43,6 +43,12 @@ public class ShoppingListFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
     /**
      * Query items to show
      */
@@ -60,7 +66,26 @@ public class ShoppingListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        db = RealmDB.getRealmDB(getContext(), User.currentUser());
         updateUI();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (db != null) db.close();
+    }
+
+    /**
+     * User option for logging out
+     */
+    public void logout() {
+        if (db != null) {
+            db.close();
+            User.currentUser().logout();
+        } else {
+            Toast.makeText(getContext(), "Not logged in!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private class ItemHolder extends RecyclerView.ViewHolder
@@ -69,13 +94,13 @@ public class ShoppingListFragment extends Fragment {
         private TextView itemText;
         private Item item;
 
-        public ItemHolder(View itemView) {
+        ItemHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             itemText = (TextView) itemView.findViewById(R.id.list_item);
         }
 
-        public void bindItem(Item item) {
+        void bindItem(Item item) {
             this.item = item;
             itemText.setText(item.getName());
         }
@@ -92,7 +117,7 @@ public class ShoppingListFragment extends Fragment {
         private Context context;
         private List<Item> items;
 
-        public ItemAdapter(List<Item> items, Context context) {
+        ItemAdapter(List<Item> items, Context context) {
             this.items = items;
             this.context = context;
         }
@@ -119,7 +144,7 @@ public class ShoppingListFragment extends Fragment {
          * Update items
          * @param items Updated items
          */
-        public void setItems(List<Item> items) {
+        void setItems(List<Item> items) {
             this.items = items;
         }
     }

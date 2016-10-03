@@ -2,18 +2,16 @@ package com.projects.anders.shoppinglist.db;
 
 import android.content.Context;
 
+import com.projects.anders.shoppinglist.BuildConfig;
 import com.projects.anders.shoppinglist.data.CATEGORY;
 import com.projects.anders.shoppinglist.data.Item;
-import com.projects.anders.shoppinglist.BuildConfig;
 import com.projects.anders.shoppinglist.data.UNIT;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.ObjectServerError;
 import io.realm.SyncConfiguration;
-import io.realm.Credentials;
 import io.realm.User;
 
 /**
@@ -42,42 +40,36 @@ public class RealmDB {
         return _db == null ? new RealmDB(context, user) : _db;
     }
 
+    /**
+     * Adds the specified item to the shopping list
+     * Ignoring duplicates
+     * @param item Item to add
+     */
     public void addItem(Item item) //throws <SomeRealmException>
     {
-        _realm.beginTransaction();
-        //Add shopping list here
-        _realm.commitTransaction();
-        //Throw some exception if it fails
+        //TODO: Add item from the db
     }
 
-    public Item getItem(String name) {
-        _realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm bgRealm) {
-                //Define "query"
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                //perform some action
-            }
-        });
-        return null;
-    }
-
-    public void removeItem(Item item) {
+    /**
+     * Remove a single item from the shopping list
+     * @param item Item to remove
+     */
+    public void removeItem(Item item) { //throws <SomeRealmException>
         //TODO: Remove an item from the db
-    }
-
-    public void close() {
-        _realm.close();
     }
 
     /**
      * Fetch all items currently on the shopping list
+     * Ordered by category
      * @return Relevant shopping list items
      */
     public List<Item> getItems() {
+        //TODO: Query db for all items, sorted by category
         return testItems;
+    }
+
+    public void close() {
+        _realm.close();
+        _realm = null; //New connection to db required for reuse
     }
 }
