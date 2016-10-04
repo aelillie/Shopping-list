@@ -1,5 +1,6 @@
 package com.projects.anders.shoppinglist;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ public class ShoppingListFragment extends Fragment {
     private RecyclerView itemsRecyclerView;
     private ItemAdapter adapter;
     private RealmDB db;
+    private ShoppingListListener _callBack;
 
     @Nullable
     @Override
@@ -107,8 +109,9 @@ public class ShoppingListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            //TODO: Option for deleting item?
             Toast.makeText(getContext(), "CLICK", Toast.LENGTH_SHORT).show();
+            db.removeItem(item);
+            _callBack.onItemRemoved();
         }
     }
 
@@ -147,5 +150,25 @@ public class ShoppingListFragment extends Fragment {
         void setItems(List<Item> items) {
             this.items = items;
         }
+    }
+
+    //Attach activity as callback
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity a;
+        if (context instanceof Activity)
+            a = (Activity) context;
+        else throw new ClassCastException("Activity context not found");
+        try {
+            _callBack = (ShoppingListListener) a;
+        } catch (ClassCastException e) {
+            System.out.println(a.toString() + "must implement the interface");
+        }
+
+    }
+
+    public interface ShoppingListListener {
+        void onItemRemoved();
     }
 }

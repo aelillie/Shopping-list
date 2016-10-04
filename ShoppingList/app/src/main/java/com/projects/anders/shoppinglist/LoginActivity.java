@@ -17,10 +17,10 @@ import io.realm.User;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.input_username) EditText username;
-    @BindView(R.id.input_password) EditText password;
-    @BindView(R.id.button_login) Button loginButton;
-    @BindView(R.id.button_create) Button createUserButton;
+    private EditText username;
+    private EditText password;
+    private Button loginButton;
+    private Button createUserButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
