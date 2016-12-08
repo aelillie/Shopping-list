@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.projects.anders.shoppinglist.db.RealmDB;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Credentials;

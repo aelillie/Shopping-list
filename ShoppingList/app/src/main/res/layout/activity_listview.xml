@@ -8,18 +8,17 @@
 
     <FrameLayout
         android:orientation="vertical"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/container_shopping_list">
     </FrameLayout>
 
-    <FrameLayout
+    <!--<FrameLayout
         android:orientation="vertical"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:id="@+id/container_add_item">
-    </FrameLayout>
+    </FrameLayout>-->
 
 </LinearLayout>

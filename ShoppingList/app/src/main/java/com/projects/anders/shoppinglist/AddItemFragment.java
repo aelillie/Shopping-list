@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,9 @@ import com.projects.anders.shoppinglist.db.RealmDB;
 import io.realm.User;
 
 /**
- * Handles adding items to the shopping list in @ShoppingListFragment
+ * Handles adding items to the shopping list in @ShoppingListActivity
  */
-public class AddItemFragment extends Fragment {
+public class AddItemFragment extends AppCompatActivity {
 
     private EditText itemName;
     private EditText itemQuantity;
@@ -34,28 +35,25 @@ public class AddItemFragment extends Fragment {
 
     private Item item;
 
-    private ItemListener _callBack;
     private RealmDB db;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add_item, container, false);
-
-        bindViews(v);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bindViews();
         setAdapters();
         setListeners();
 
         item = new Item(); //Empty item
-        db = RealmDB.getRealmDB(getContext(), User.currentUser()); //Maybe get user from parent?
-        return v;
+        db = RealmDB.getRealmDB(this, User.currentUser()); //Maybe get user from parent?
     }
 
+
     private void setAdapters() {
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getContext(),
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item, CATEGORY.getCategories());
         itemCategory.setAdapter(categoryAdapter);
-        ArrayAdapter<String> unitAdapter = new ArrayAdapter<>(getContext(),
+        ArrayAdapter<String> unitAdapter = new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item, UNIT.getUnits());
         itemUnit.setAdapter(unitAdapter);
     }
@@ -95,38 +93,18 @@ public class AddItemFragment extends Fragment {
                     double quantity = Double.parseDouble(itemQuantity.getText().toString());
                     item.setQuantity(quantity);
                     db.addItem(item);
-                    _callBack.onItemAdded();
+                    //TODO: Go to list
                 }
             }
         });
     }
 
-    private void bindViews(View v) {
-        itemName = (EditText) v.findViewById(R.id.text_item_name);
-        itemQuantity = (EditText) v.findViewById(R.id.text_item_quantity);
-        itemCategory = (Spinner) v.findViewById(R.id.spinner_item_category);
-        itemUnit = (Spinner) v.findViewById(R.id.spinner_item_unit);
-        addItemButton = (Button) v.findViewById(R.id.button_add);
-    }
-
-    //Attach activity as callback
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity a;
-        if (context instanceof Activity)
-            a = (Activity) context;
-        else throw new ClassCastException("Activity context not found");
-        try {
-            _callBack = (ItemListener) a;
-        } catch (ClassCastException e) {
-            System.out.println(a.toString() + "must implement the interface");
-        }
-
-    }
-
-    public interface ItemListener {
-        void onItemAdded();
+    private void bindViews() {
+        itemName = (EditText) findViewById(R.id.text_item_name);
+        itemQuantity = (EditText) findViewById(R.id.text_item_quantity);
+        itemCategory = (Spinner) findViewById(R.id.spinner_item_category);
+        itemUnit = (Spinner) findViewById(R.id.spinner_item_unit);
+        addItemButton = (Button) findViewById(R.id.button_add);
     }
 
 }
