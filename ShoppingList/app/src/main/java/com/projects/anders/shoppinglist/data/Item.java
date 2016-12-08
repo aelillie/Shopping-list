@@ -7,50 +7,50 @@ import io.realm.RealmObject;
  * E.g.: "Milk", "2.0", and "litres"
  */
 public class Item extends RealmObject{
-    private String _name;
-    private double _quantity;
-    private String _unit;
-    private String _category;
+    private String name;
+    private double quantity;
+    private String unit;
+    private String category;
 
     public Item() {
     }
 
     public Item(String category, String name, double quantity, String unit) {
-        _category = category;
-        _name = name;
-        _quantity = quantity;
-        _unit = unit;
+        this.category = category;
+        this.name = name;
+        this.quantity = quantity;
+        this.unit = unit;
     }
 
     public String getCategory() {
-        return _category;
+        return category;
     }
 
     public String getName() {
-        return _name;
+        return name;
     }
 
     public double getQuantity() {
-        return _quantity;
+        return quantity;
     }
 
     public String getUnit() {
-        return _unit;
+        return unit;
     }
 
     public void setCategory(String category) {
-        _category = category;
+        this.category = category;
     }
 
     public void setName(String name) {
-        _name = name;
+        this.name = name;
     }
 
     public void setQuantity(double quantity) {
-        _quantity = quantity;
+        this.quantity = quantity;
     }
 
     public void setUnit(String unit) {
-        _unit = unit;
+        this.unit = unit;
     }
 }

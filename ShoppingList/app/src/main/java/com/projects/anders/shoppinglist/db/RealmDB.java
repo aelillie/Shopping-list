@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 import io.realm.SyncConfiguration;
 import io.realm.User;
 
@@ -45,17 +47,33 @@ public class RealmDB {
      * Ignoring duplicates
      * @param item Item to add
      */
-    public void addItem(Item item) //throws <SomeRealmException>
+    public void addItem(final Item item) //throws <SomeRealmException>
     {
-        //TODO: Add item from the db
+        _realm.executeTransaction(new Realm.Transaction() {
+
+            @Override
+            public void execute(Realm realm) {
+                _realm.copyToRealm(item);
+            }
+        });
     }
 
     /**
      * Remove a single item from the shopping list
      * @param item Item to remove
      */
-    public void removeItem(Item item) { //throws <SomeRealmException>
-        //TODO: Remove an item from the db
+    public void removeItem(final Item item) { //throws <SomeRealmException>
+        _realm.executeTransaction(new Realm.Transaction() {
+
+            @Override
+            public void execute(Realm realm) {
+                item.deleteFromRealm();
+            }
+        });
+    }
+
+    public void updateItem(final Item item) {
+        addItem(item); //TODO: Does this work?
     }
 
     /**
@@ -64,8 +82,7 @@ public class RealmDB {
      * @return Relevant shopping list items
      */
     public List<Item> getItems() {
-        //TODO: Query db for all items, sorted by category
-        return testItems;
+        return _realm.where(Item.class).findAllSorted("category");
     }
 
     public void close() {

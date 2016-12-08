@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class ShoppingListFragment extends Fragment {
 
         return v;
     }
+
 
     @Override
     public void onStart() {
@@ -91,14 +93,14 @@ public class ShoppingListFragment extends Fragment {
     }
 
     private class ItemHolder extends RecyclerView.ViewHolder
-        implements View.OnClickListener {
+        implements View.OnLongClickListener {
 
         private TextView itemText;
         private Item item;
 
         ItemHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
             itemText = (TextView) itemView.findViewById(R.id.list_item);
         }
 
@@ -108,10 +110,11 @@ public class ShoppingListFragment extends Fragment {
         }
 
         @Override
-        public void onClick(View view) {
+        public boolean onLongClick(View view) {
             Toast.makeText(getContext(), "CLICK", Toast.LENGTH_SHORT).show();
             db.removeItem(item);
             _callBack.onItemRemoved();
+            return true;
         }
     }
 
