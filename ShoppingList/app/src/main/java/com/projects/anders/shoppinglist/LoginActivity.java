@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = this.password.getText().toString();
 
         Credentials creds = Credentials.usernamePassword(username, password, createUser);
-        String authUrl = "http://" + BuildConfig.OBJECT_SERVER_IP + ":9080/auth";
+        String authUrl = "http://" + RealmDB.SERVER_IP + ":9080/auth";
         User.Callback callback = new User.Callback() {
             @Override
             public void onSuccess(User user) {

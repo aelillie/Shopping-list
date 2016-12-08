@@ -23,10 +23,11 @@ public class RealmDB {
     private Realm _realm;
     private static RealmDB _db;
     private List<Item> testItems;
+    private static final String SERVER_IP = "edelbo.net";
 
     private RealmDB(Context context, User user) {
 
-        String serverURL = "realm://" + BuildConfig.OBJECT_SERVER_IP + "/~/default";
+        String serverURL = "http://" + SERVER_IP + "/~/default";
         SyncConfiguration configuration = new SyncConfiguration.Builder(user, serverURL).build();
         _realm = Realm.getInstance(configuration);
 
