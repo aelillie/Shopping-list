@@ -23,7 +23,7 @@ public class RealmDB {
     private Realm _realm;
     private static RealmDB _db;
     private List<Item> testItems;
-    public static final String SERVER_IP = "edelbo.net";
+    public static final String SERVER_IP = "anders.edelbo.net";
 
     private RealmDB(Context context, User user) {
 

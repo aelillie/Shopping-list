@@ -25,7 +25,7 @@ import io.realm.User;
 /**
  * Handles adding items to the shopping list in @ShoppingListActivity
  */
-public class AddItemFragment extends AppCompatActivity {
+public class AddItemActivity extends AppCompatActivity {
 
     private EditText itemName;
     private EditText itemQuantity;
@@ -40,6 +40,7 @@ public class AddItemFragment extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_item);
         bindViews();
         setAdapters();
         setListeners();

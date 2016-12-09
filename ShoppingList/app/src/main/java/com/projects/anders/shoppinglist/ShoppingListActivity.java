@@ -40,14 +40,14 @@ public class ShoppingListActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listview);
+        setContentView(R.layout.activity_shopping_list);
         Realm.init(this);
         User user = User.currentUser();
         if (user == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, RESULT_OK);
         } else {
-            itemsRecyclerView = (RecyclerView) findViewById(R.id.fragment_shopping_list_recycler_view);
+            itemsRecyclerView = (RecyclerView) findViewById(R.id.shopping_list_recycler_view);
             itemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
             db = RealmDB.getRealmDB(this, User.currentUser());
@@ -96,6 +96,7 @@ public class ShoppingListActivity extends AppCompatActivity{
     @Override
     public void onResume() {
         super.onResume();
+        if (db == null) return; //Login required
         db = RealmDB.getRealmDB(this, User.currentUser());
         updateUI();
     }
@@ -110,7 +111,8 @@ public class ShoppingListActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_add) {
-            //TODO: Go to add item activity
+            Intent intent = new Intent(this, AddItemActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -135,8 +137,8 @@ public class ShoppingListActivity extends AppCompatActivity{
 
         @Override
         public boolean onLongClick(View view) {
-            //Toast.makeText(this, "CLICK", Toast.LENGTH_SHORT).show();
-            db.removeItem(item); //TODO: Update view
+            db.removeItem(item);
+            updateUI();
             return true;
         }
     }
