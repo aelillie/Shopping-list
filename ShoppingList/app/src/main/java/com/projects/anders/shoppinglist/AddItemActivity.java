@@ -2,6 +2,7 @@ package com.projects.anders.shoppinglist;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -94,7 +95,7 @@ public class AddItemActivity extends AppCompatActivity {
                     double quantity = Double.parseDouble(itemQuantity.getText().toString());
                     item.setQuantity(quantity);
                     db.addItem(item);
-                    //TODO: Go to list
+                    startActivity(new Intent(getApplication(), ShoppingListActivity.class));
                 }
             }
         });
